@@ -12,7 +12,7 @@ describe Sift::Client do
   end
 
   def fully_qualified_client_signup_endpoint
-    Sift::Client::API_ENDPOINT + Sift.current_client_signup_api_path
+    Sift::Client::SIGNUP_ENDPOINT + Sift.current_client_signup_api_path
   end
 
   it "Successfuly handles a signup with the v203 API and returns OK" do
@@ -43,7 +43,7 @@ describe Sift::Client do
     api_key = "foobar"
     properties = valid_signup_properties
 
-    response = Sift::Client.new(api_key, Sift.current_client_signup_api_path).signup(plugin_key, properties)
+    response = Sift::Client.new(api_key, Sift::Client::SIGNUP_ENDPOINT + Sift.current_client_signup_api_path).signup(plugin_key, properties)
     response.ok?.should eq(true)
     response.api_status.should eq(0)
     response.api_error_message.should eq("OK")
