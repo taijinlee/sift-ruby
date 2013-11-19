@@ -157,5 +157,51 @@ module Sift
       path = Sift.current_users_label_api_path(user_id)
       track("$label", properties, timeout, path)
     end
+
+    # Creates a client through the Sift Science API. This call
+    # is blocking.
+    #
+    # == Parameters:
+    # plugin_key
+    #   The plugin_key assigned by Sift Science.
+    #   This parameter must be specified.
+    #
+    # properties
+    #   A hash of name-value pairs that specify the information for the client account.
+    #   This parameter must be specified.
+    #
+    # timeout (optional)
+    #   The number of seconds to wait before failing the request. By default this is
+    #   configured to 2 seconds (see above). This parameter is optional.
+    #
+    # path (optional)
+    #   Overrides the default API path with a different URL.
+    #
+    #
+    # == Returns:
+    #   In the case of an HTTP error (timeout, broken connection, etc.), this
+    #   method returns nil; otherwise, a Response object is returned and captures
+    #   the status message and status code. In general, you can ignore the returned
+    #   result, though.
+    #
+    def signup(plugin_key, properties = {}, timeout = nil, path = nil)
+
+      raise(RuntimeError, "plugin_key must be a string") if plugin_key.nil? || plugin_key.to_s.empty?
+      raise(RuntimeError, "properties cannot be empty") if properties.empty?
+
+      path ||= @path
+      options = {
+        :body => MultiJson.dump(properties.merge({"$plugin_key" => plugin_key})),
+      }
+      options.merge!(:timeout => timeout) unless timeout.nil?
+      begin
+        response = self.class.post(path, options)
+        Response.new(response.body, response.code)
+      rescue StandardError => e
+        Sift.warn("Failed to track event: " + e.to_s)
+        Sift.warn(e.backtrace)
+      end
+    end
+
   end
 end

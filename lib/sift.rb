@@ -13,6 +13,10 @@ module Sift
     "/v203/users/#{URI.encode(user_id)}/labels"
   end
 
+  def self.current_client_signup_api_path
+    "/plugins/shopify"
+  end
+
   # Sets the Output logger to use within the client. This can be left uninitializaed
   # but is useful for debugging.
   def self.logger=(logger)
