@@ -196,7 +196,7 @@ module Sift
       options.merge!(:timeout => timeout) unless timeout.nil?
       begin
         response = self.class.post(path, options)
-        Response.new(response.body, response.code)
+        return Response.new(response.body, response.code)
       rescue StandardError => e
         Sift.warn("Failed to track event: " + e.to_s)
         Sift.warn(e.backtrace)
