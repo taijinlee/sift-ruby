@@ -192,12 +192,12 @@ module Sift
 
       path ||= @path
       options = {
-        :body => MultiJson.dump(properties.merge({"$plugin_key" => plugin_key})).to_s.gsub(/\"/, "'"),
+        :body => MultiJson.dump(properties.merge({"$plugin_key" => plugin_key})),
       }
       options.merge!(:timeout => timeout) unless timeout.nil?
 
-Sift.info(path)
-Sift.info(options)
+      Sift.info(path)
+      Sift.info(options)
 
       begin
         response = self.class.post(path, options)
