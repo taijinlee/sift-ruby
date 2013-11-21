@@ -100,6 +100,7 @@ module Sift
       options = {
         :body => MultiJson.dump(properties.merge({"$type" => event,
                                                   "$api_key" => @api_key})),
+        :headers => {'Content-Type' => 'application/json' }
       }
       options.merge!(:timeout => timeout) unless timeout.nil?
       begin
@@ -193,6 +194,7 @@ module Sift
       path ||= @path
       options = {
         :body => MultiJson.dump(properties.merge({"$plugin_key" => plugin_key})),
+        :headers => {'Content-Type' => 'application/json' }
       }
       options.merge!(:timeout => timeout) unless timeout.nil?
 
