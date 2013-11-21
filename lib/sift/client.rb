@@ -198,12 +198,8 @@ module Sift
       }
       options.merge!(:timeout => timeout) unless timeout.nil?
 
-      Sift.info(path)
-      Sift.info(options)
-
       begin
         response = self.class.post(path, options)
-        Sift.info(response)
         return Response.new(response.body, response.code)
       rescue StandardError => e
         Sift.warn("Failed to signup user: " + e.to_s)
