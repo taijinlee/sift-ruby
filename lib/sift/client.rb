@@ -199,7 +199,7 @@ module Sift
         response = self.class.post(path, options)
         return Response.new(response.body, response.code)
       rescue StandardError => e
-        Sift.warn("Failed to track event: " + e.to_s)
+        Sift.warn("Failed to signup user: " + e.to_s)
         Sift.warn(e.backtrace)
       end
     end
