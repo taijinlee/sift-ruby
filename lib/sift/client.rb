@@ -195,6 +195,10 @@ module Sift
         :body => MultiJson.dump(properties.merge({"$plugin_key" => plugin_key})),
       }
       options.merge!(:timeout => timeout) unless timeout.nil?
+
+Sift.info(path)
+Sift.info(options)
+
       begin
         response = self.class.post(path, options)
         Sift.info(response)
