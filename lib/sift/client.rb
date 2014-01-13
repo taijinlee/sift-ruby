@@ -42,7 +42,7 @@ module Sift
   #
   class Client
     API_ENDPOINT = "https://api.siftscience.com"
-    SIGNUP_ENDPOINT = "http://localhost:3000"
+    SIGNUP_ENDPOINT = "https://experiment.siftscience.com"
     API_TIMEOUT = 2
 
     include HTTParty
